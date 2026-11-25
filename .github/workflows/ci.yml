@@ -1,0 +1,29 @@
+name: Python checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install
+        run: python -m pip install -e '.[dev]'
+      - name: Lint
+        run: ruff check src tests examples
+      - name: Test (offline)
+        run: python -m pytest -q
+      - name: Smoke test (offline)
+        run: |
+          python -m canprod --help
+          python -m canprod fit --input examples/synthetic_production.csv --base-year 2012 --outdir outputs/ci --plot

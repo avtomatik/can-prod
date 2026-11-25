@@ -1,0 +1,8 @@
+{
+  "title": "Canadian production analysis (replace with a defensible, harmonized series selection)",
+  "series": {
+    "capital": {"table_id": null, "vector": "vREPLACE", "aggregation": "last", "allow_partial_years": false},
+    "labour": {"table_id": null, "vector": "vREPLACE", "aggregation": "mean", "allow_partial_years": false},
+    "output": {"table_id": null, "vector": "vREPLACE", "aggregation": "sum", "allow_partial_years": false}
+  }
+}
